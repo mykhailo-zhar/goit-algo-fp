@@ -22,6 +22,16 @@ def pythagorean_tree(
     last_angle: float = 0,
     size_decrease_rate: float = 0.6,
 ) -> None:
+    """
+    Display a Pythagorean tree fractal
+
+    Args:
+        t (turtle.Turtle): A turtle object for displaying
+        order (int): Order of the fractal
+        size (float): Size of the line drawed
+        last_angle (float, optional): The angle of the last order of the fractal. Defaults to 0.
+        size_decrease_rate (float, optional): Decreases line size by this factor. Defaults to 0.6.
+    """
     if order == 0:
         t.forward(size)
         return
@@ -30,7 +40,7 @@ def pythagorean_tree(
     current_point = t.position()
     # Decrease current size by some factor to avoid collisions
     next_size = size * size_decrease_rate if 0.05 < size_decrease_rate < 1 else size
-    # Split into several lines and draw new tree
+    # Split into several lines and draw the next order of the tree
     for angle in [45, -45]:
         t.setheading(last_angle)
         go_to_point(t, current_point[0], current_point[1])
@@ -56,7 +66,7 @@ if __name__ == "__main__":
 
     order = args.order
     if not (0 < order < 8):
-        print("Order should be more than 0 and less than 8 ")
+        print("Order should be more than 0 and less than 8. Setting to 5.")
         order = 5
 
     t = turtle.Turtle()
