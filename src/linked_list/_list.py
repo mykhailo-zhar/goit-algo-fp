@@ -54,6 +54,9 @@ class LinkedList:
         return None
 
     def reverse(self):
+        """
+        Reverses linked list
+        """
         current, prev, node = self.head, None, None
         if current is None:
             return
@@ -68,6 +71,10 @@ class LinkedList:
         self.head = prev
 
     def sort(self):
+        """
+        Sorts the linked list using insertion sort
+        """
+
         if not (self.head and self.head.next):
             return
 
@@ -84,6 +91,12 @@ class LinkedList:
         self.__reorder_list(nodes)
 
     def merge_with(self, other: Self):
+        """
+        Merges current list with the other
+
+        Args:
+            other (Self): Other linked list to merge
+        """
         nodes = []
         part_a = self.to_node_list()
         part_b = other.to_node_list()
@@ -107,6 +120,12 @@ class LinkedList:
         self.__reorder_list(nodes)
 
     def __reorder_list(self, nodes: list[Node]):
+        """
+        Reorders the list based on the list of nodes
+
+        Args:
+            nodes (list[Node]): the list of nodes for reordering
+        """
         if not nodes:
             return
 
