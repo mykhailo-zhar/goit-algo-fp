@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Self
 
 from .node import Node
 
@@ -80,6 +80,29 @@ class LinkedList:
                 nodes[j + 1] = nodes[j]
                 j -= 1
             nodes[j + 1] = key
+
+        self.__reorder_list(nodes)
+
+    def merge_with(self, other: Self):
+        nodes = []
+        part_a = self.to_node_list()
+        part_b = other.to_node_list()
+
+        i, j = 0, 0
+
+        while i < len(part_a) and j < len(part_b):
+            if part_a[i].data <= part_b[j].data:
+                nodes.append(part_a[i])
+                i += 1
+
+            else:
+                nodes.append(part_b[j])
+                j += 1
+
+        if i < len(part_a):
+            nodes += part_a[i:]
+        if j < len(part_b):
+            nodes += part_b[j:]
 
         self.__reorder_list(nodes)
 
