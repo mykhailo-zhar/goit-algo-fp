@@ -1,3 +1,5 @@
+from typing import Any
+
 from .node import Node
 
 
@@ -65,13 +67,44 @@ class LinkedList:
 
         self.head = prev
 
-    def to_list(self) -> list[int]:
+    def sort(self):
+        if not (self.head and self.head.next):
+            return
+
+        nodes = self.to_node_list()
+        N = len(nodes)
+        for i in range(1, N):
+            j = i - 1
+            key = nodes[i]
+            while j >= 0 and key.data < nodes[j].data:
+                nodes[j + 1] = nodes[j]
+                j -= 1
+            nodes[j + 1] = key
+
+        self.__reorder_list(nodes)
+
+    def __reorder_list(self, nodes: list[Node]):
+        if not nodes:
+            return
+
+        current = nodes[0]
+        for i in range(1, len(nodes)):
+            current.next = nodes[i]
+            current = nodes[i]
+
+        nodes[-1].next = None
+        self.head = nodes[0]
+
+    def to_node_list(self) -> list[Node]:
         result = []
         current = self.head
         while current:
-            result.append(current.data)
+            result.append(current)
             current = current.next
         return result
+
+    def to_list(self) -> list[Any]:
+        return [node.data for node in self.to_node_list()]
 
     def print_list(self):
         current = self.head
