@@ -51,6 +51,20 @@ class LinkedList:
             cur = cur.next
         return None
 
+    def reverse(self):
+        current, prev, node = self.head, None, None
+        if current is None:
+            return
+
+        while current:
+            node = current
+            current = current.next
+
+            node.next = prev
+            prev = node
+
+        self.head = prev
+
     def to_list(self) -> list[int]:
         result = []
         current = self.head
