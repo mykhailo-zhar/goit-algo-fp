@@ -15,6 +15,17 @@ INITIAL_COLOR = (10, 10, 10)
 
 
 def bfs(tree: Node, value):
+    """
+    Breadth first search. Brightens the nodes during the search.
+
+    Args:
+        tree (Node): Tree to search
+        value (Any): Value of the tree
+
+    Returns:
+        Node: Tree node with value
+    """
+
     nodes = deque([tree])
 
     color = INITIAL_COLOR
@@ -37,6 +48,16 @@ def bfs(tree: Node, value):
 
 
 def dfs(tree: Node, value):
+    """
+    Depth first search. Brightens the nodes during the search.
+
+    Args:
+        tree (Node): Tree to search
+        value (Any): Value of the tree
+
+    Returns:
+        Node: Tree node with value
+    """
     nodes = deque([tree])
 
     color = INITIAL_COLOR
