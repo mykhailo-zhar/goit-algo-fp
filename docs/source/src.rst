@@ -8,9 +8,18 @@ Subpackages
    :maxdepth: 4
 
    src.linked_list
+   src.tree
 
 Submodules
 ----------
+
+src.dijkstra module
+-------------------
+
+.. automodule:: src.dijkstra
+   :members:
+   :show-inheritance:
+   :undoc-members:
 
 src.pythagorian\_tree module
 ----------------------------
