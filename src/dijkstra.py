@@ -1,23 +1,6 @@
 import heapq
-from dataclasses import dataclass
-from typing import Self
 
 import networkx as nx
-
-
-@dataclass
-class NodeInfo:
-    node: str = None
-    distance: float = float("inf")
-
-    def __lt__(self, other: Self):
-        return self.distance < other.distance
-
-    def __gt__(self, other: Self):
-        return self.distance > other.distance
-
-    def __repr__(self) -> str:
-        return f"NodeInfo({self.node.__repr__(), self.distance})"
 
 
 def dijkstra(G: nx.Graph, vertex):
@@ -32,25 +15,25 @@ def dijkstra(G: nx.Graph, vertex):
         dict[node, float]: A dictionary of distances to nodes
     """
     # Convert every node in graph to a dictionary with vertecies
-    distances = {node: NodeInfo(node, float("inf")) for node in G.nodes}
-    distances[vertex].distance = 0
+    distances = {node: float("inf") for node in G.nodes}
+    distances[vertex] = 0
 
     # Convert vertecies list to heap
-    unvisited = list(distances.values())
+    unvisited = [(0, vertex)]
 
     while unvisited:
         # Every vertex on heap already has knowledge about their distance
         # Optimized from O(N) using min linear search to O(logN) using heap
-        heapq.heapify(unvisited)
-        current_vertex: NodeInfo = heapq.heappop(unvisited)
+        current_distance, current_vertex = heapq.heappop(unvisited)
 
-        if current_vertex.distance == float("inf"):
+        if current_distance == float("inf"):
             break
 
-        for _, neighbor, weight in G.edges(nbunch=current_vertex.node, data="weight"):
-            new_distance = current_vertex.distance + weight
+        for _, neighbor, weight in G.edges(nbunch=current_vertex, data="weight"):
+            new_distance = current_distance + weight
 
-            if new_distance < distances[neighbor].distance:
-                distances[neighbor].distance = new_distance
+            if new_distance < distances[neighbor]:
+                distances[neighbor] = new_distance
+                heapq.heappush(unvisited, (new_distance, neighbor))
 
-    return {vertex.node: vertex.distance for vertex in distances.values()}
+    return distances
