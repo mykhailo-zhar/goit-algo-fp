@@ -29,10 +29,10 @@ src.dijkstra module
    :show-inheritance:
    :undoc-members:
 
-src.pythagorian\_tree module
+src.pythagorean\_tree module
 ----------------------------
 
-.. automodule:: src.pythagorian_tree
+.. automodule:: src.pythagorean_tree
    :members:
    :show-inheritance:
    :undoc-members:
