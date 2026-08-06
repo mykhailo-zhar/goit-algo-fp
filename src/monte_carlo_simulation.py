@@ -33,7 +33,7 @@ def print_expetiment(n_experiments, analytical):
 
 def main():
     analytical_result = [i / 36 for i in range(1, 7)] + [
-        i / 36 for i in range(5, 1, -1)
+        i / 36 for i in range(5, 0, -1)
     ]
     print("Analytical result for cube toss sum probabilities: ")
     print_probabilities(analytical_result)
