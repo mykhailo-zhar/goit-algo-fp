@@ -4,15 +4,14 @@ import networkx as nx
 
 
 def dijkstra(G: nx.Graph, vertex):
-    """
-    Dijkstra algorithm
+    """Алгоритм Дейкстри для пошуку найкоротших шляхів.
 
     Args:
-        G (nx.Graph): A graph
-        vertex (node): A node to calculate distances from
+        G: зважений граф.
+        vertex: початкова вершина.
 
     Returns:
-        dict[node, float]: A dictionary of distances to nodes
+        Словник відстаней від початкової вершини до всіх інших.
     """
     # Convert every node in graph to a dictionary with vertecies
     distances = {node: float("inf") for node in G.nodes}

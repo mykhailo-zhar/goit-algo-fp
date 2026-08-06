@@ -10,14 +10,14 @@
 
 Рекурсивна візуалізація фрактала, рівень задається користувачем.
 
-Файл: [`src/pythagorian_tree.py`](src/pythagorian_tree.py)
+Файл: [`src/pythagorean_tree.py`](src/pythagorean_tree.py)
 
 ```bash
-uv run python -m src.pythagorian_tree --order 5
+uv run python -m src.pythagorean_tree --order 5
 ```
 
 <!-- зображення -->
-![Дерево Піфагора](docs/images/pythagorean_tree.png)
+![Дерево Піфагора](assets/images/pythagorean-tree.png)
 
 ## Завдання 3. Алгоритм Дейкстри
 
@@ -32,18 +32,18 @@ uv run python -m src.pythagorian_tree --order 5
 Файли: [`src/tree/heap2tree.py`](src/tree/heap2tree.py), [`src/tree/tree.py`](src/tree/tree.py), [`main.py`](main.py)
 
 <!-- зображення -->
-![Візуалізація купи](docs/images/heap.png)
+![Візуалізація купи](assets/images/heap.png)
 
 ## Завдання 5. Візуалізація обходу дерева
 
 DFS (стек) і BFS (черга), кольори від темних до світлих.
 
-Файл: [`src/tree/searches.py`](src/tree/searches.py)
+Файл: [`src/tree/traversals.py`](src/tree/traversals.py)
 
 <!-- зображення -->
-![DFS](docs/images/dfs.png)
+![DFS](assets/images/dfs.png)
 
-![BFS](docs/images/bfs.png)
+![BFS](assets/images/bfs.png)
 
 ## Завдання 6. Жадібний алгоритм і ДП
 

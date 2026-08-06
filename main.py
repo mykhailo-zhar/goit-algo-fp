@@ -1,7 +1,7 @@
 import copy
 
 from src.tree.heap2tree import heap_to_tree
-from src.tree.searches import bfs, dfs
+from src.tree.traversals import bfs, dfs
 from src.tree.tree import draw_tree
 
 
@@ -15,11 +15,11 @@ def main():
     draw_tree(tree)
 
     tree_copy = copy.deepcopy(tree)
-    dfs(tree_copy, 31)
+    dfs(tree_copy)
     draw_tree(tree_copy)
 
     tree_copy = copy.deepcopy(tree)
-    bfs(tree_copy, 31)
+    bfs(tree_copy)
     draw_tree(tree_copy)
 
 
