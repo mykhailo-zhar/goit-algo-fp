@@ -4,12 +4,15 @@ import heapq
 
 @dataclass
 class Item:
+    """Страва з вартістю, калорійністю та співвідношенням калорії/вартість."""
+
     name: str
     cost: int
     calories: int
     ratio: float
 
     def __init__(self, name: str, values: dict):
+        """Створює Item з назви та словника {"cost": int, "calories": int}."""
         self.name = name
         self.cost = values["cost"]
         self.calories = values["calories"]
@@ -18,8 +21,20 @@ class Item:
     def __str__(self) -> str:
         return f"{self.name} costs {self.cost} with calory intake: {self.calories}"
 
+    def __lt__(self, other):
+        return self.ratio < other.ratio
 
-def greedy_algorithm(items: list[Item], wallet: int) -> int:
+
+def greedy_algorithm(items: list[Item], wallet: int) -> tuple[int, list[Item]]:
+    """Жадібний вибір страв за максимальним ratio калорії/вартість у межах бюджету.
+
+    Args:
+        items: список доступних страв.
+        wallet: доступний бюджет.
+
+    Returns:
+        Сума калорій і список обраних страв (наближений розв'язок).
+    """
     heap = [(-item.ratio, item) for item in items]
     heapq.heapify(heap)
     total_value = 0
@@ -34,7 +49,16 @@ def greedy_algorithm(items: list[Item], wallet: int) -> int:
     return total_value, max_calories
 
 
-def dynamic_programming(items: list[Item], wallet: int):
+def dynamic_programming(items: list[Item], wallet: int) -> tuple[int, list[Item]]:
+    """Оптимальний набір страв (0/1 knapsack) для максимізації калорій у межах бюджету.
+
+    Args:
+        items: список доступних страв.
+        wallet: доступний бюджет.
+
+    Returns:
+        Максимальна сума калорій і відповідний список страв.
+    """
     n = len(items)
     zero_item = [0, []]
     K = [[zero_item] * (wallet + 1) for _ in range(n + 1)]
@@ -68,6 +92,7 @@ def dynamic_programming(items: list[Item], wallet: int):
 
 
 def main():
+    """Порівнює результати жадібного алгоритму та динамічного програмування."""
     items = {
         "pizza": {"cost": 50, "calories": 300},
         "hamburger": {"cost": 40, "calories": 250},
