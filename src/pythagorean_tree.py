@@ -1,6 +1,6 @@
-"""Pythagorean tree
+"""Дерево Піфагора.
 
-The Pythagorean tree is a fractal that is created by starting with a line and splitting it into several branches rotated by 45 degrees.
+Фрактал, що будується з відрізка шляхом рекурсивного розгалуження під кутом 45°.
 """
 
 from __future__ import annotations
@@ -22,15 +22,14 @@ def pythagorean_tree(
     last_angle: float = 0,
     size_decrease_rate: float = 0.6,
 ) -> None:
-    """
-    Display a Pythagorean tree fractal
+    """Малює фрактал «дерево Піфагора» за допомогою рекурсії.
 
     Args:
-        t (turtle.Turtle): A turtle object for displaying
-        order (int): Order of the fractal
-        size (float): Size of the line drawed
-        last_angle (float, optional): The angle of the last order of the fractal. Defaults to 0.
-        size_decrease_rate (float, optional): Decreases line size by this factor. Defaults to 0.6.
+        t: об'єкт turtle для малювання.
+        order: рівень (порядок) рекурсії.
+        size: довжина поточного відрізка.
+        last_angle: кут попереднього рівня. За замовчуванням 0.
+        size_decrease_rate: коефіцієнт зменшення довжини. За замовчуванням 0.6.
     """
     if order == 0:
         t.forward(size)

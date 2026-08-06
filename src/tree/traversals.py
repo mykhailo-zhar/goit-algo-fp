@@ -14,16 +14,15 @@ def rgb_to_hex(rgb):
 INITIAL_COLOR = (10, 10, 10)
 
 
-def bfs(tree: Node, value = None):
-    """
-    Breadth first search. Brightens the nodes during the search.
+def bfs(tree: Node, value=None):
+    """Обхід дерева в ширину (черга). Забарвлює вузли від темних до світлих.
 
     Args:
-        tree (Node): Tree to search
-        value (Any): Value of the tree
+        tree: корінь дерева.
+        value: значення для пошуку; якщо None — обходиться все дерево.
 
     Returns:
-        Node: Tree node with value
+        Знайдений вузол або None.
     """
 
     nodes = deque([tree])
@@ -47,16 +46,15 @@ def bfs(tree: Node, value = None):
     return None
 
 
-def dfs(tree: Node, value = None):
-    """
-    Depth first search. Brightens the nodes during the search.
+def dfs(tree: Node, value=None):
+    """Обхід дерева в глибину (стек). Забарвлює вузли від темних до світлих.
 
     Args:
-        tree (Node): Tree to search
-        value (Any): Value of the tree
+        tree: корінь дерева.
+        value: значення для пошуку; якщо None — обходиться все дерево.
 
     Returns:
-        Node: Tree node with value
+        Знайдений вузол або None.
     """
     nodes = deque([tree])
 

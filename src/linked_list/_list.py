@@ -54,9 +54,7 @@ class LinkedList:
         return None
 
     def reverse(self):
-        """
-        Reverses linked list
-        """
+        """Реверсує однозв'язний список, змінюючи посилання між вузлами."""
         current, prev, node = self.head, None, None
         if current is None:
             return
@@ -71,9 +69,7 @@ class LinkedList:
         self.head = prev
 
     def sort(self):
-        """
-        Sorts the linked list using insertion sort
-        """
+        """Сортує однозв'язний список алгоритмом сортування вставками."""
 
         if not (self.head and self.head.next):
             return
@@ -91,11 +87,10 @@ class LinkedList:
         self.__reorder_list(nodes)
 
     def merge_with(self, other: Self):
-        """
-        Merges current list with the other
+        """Об'єднує поточний відсортований список з іншим у один відсортований.
 
         Args:
-            other (Self): Other linked list to merge
+            other: інший відсортований однозв'язний список.
         """
         nodes = []
         part_a = self.to_node_list()
@@ -120,11 +115,10 @@ class LinkedList:
         self.__reorder_list(nodes)
 
     def __reorder_list(self, nodes: list[Node]):
-        """
-        Reorders the list based on the list of nodes
+        """Перебудовує посилання списку за заданим порядком вузлів.
 
         Args:
-            nodes (list[Node]): the list of nodes for reordering
+            nodes: вузли у потрібному порядку.
         """
         if not nodes:
             return

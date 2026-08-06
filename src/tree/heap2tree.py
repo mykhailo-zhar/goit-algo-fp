@@ -5,14 +5,13 @@ from .tree import Node
 
 
 def heap_to_tree(heap: list[Any]) -> Node:
-    """
-    Transforms heap into tree
+    """Перетворює купу (масив) на бінарне дерево.
 
     Args:
-        heap (list[Any]): Array or heap to convert
+        heap: масив або купа для перетворення.
 
     Returns:
-        Node: A root of the binary tree
+        Корінь побудованого бінарного дерева.
     """
     if not heap:
         return None
