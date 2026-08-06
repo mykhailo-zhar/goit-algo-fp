@@ -14,7 +14,7 @@ def rgb_to_hex(rgb):
 INITIAL_COLOR = (10, 10, 10)
 
 
-def bfs(tree: Node, value):
+def bfs(tree: Node, value = None):
     """
     Breadth first search. Brightens the nodes during the search.
 
@@ -47,7 +47,7 @@ def bfs(tree: Node, value):
     return None
 
 
-def dfs(tree: Node, value):
+def dfs(tree: Node, value = None):
     """
     Depth first search. Brightens the nodes during the search.
 

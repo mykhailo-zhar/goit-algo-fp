@@ -1,7 +1,7 @@
 import pytest
 
 from src.tree.heap2tree import heap_to_tree
-from src.tree.searches import bfs, dfs
+from src.tree.traversals import bfs, dfs
 
 
 @pytest.fixture
