@@ -13,6 +13,14 @@ Subpackages
 Submodules
 ----------
 
+src.calory\_intake module
+-------------------------
+
+.. automodule:: src.calory_intake
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 src.dijkstra module
 -------------------
 
