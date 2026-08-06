@@ -10,14 +10,14 @@
 
 Рекурсивна візуалізація фрактала, рівень задається користувачем.
 
-Файл: [`src/pythagorian_tree.py`](src/pythagorian_tree.py)
+Файл: [`src/pythagorean_tree.py`](src/pythagorean_tree.py)
 
 ```bash
-uv run python -m src.pythagorian_tree --order 5
+uv run python -m src.pythagorean_tree --order 5
 ```
 
 <!-- зображення -->
-![Дерево Піфагора](docs/images/pythagorean_tree.png)
+![Дерево Піфагора](assets/images/pythagorean-tree.png)
 
 ## Завдання 3. Алгоритм Дейкстри
 
