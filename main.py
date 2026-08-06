@@ -1,3 +1,5 @@
+import copy
+
 from src.tree.heap2tree import heap_to_tree
 from src.tree.searches import bfs, dfs
 from src.tree.tree import draw_tree
@@ -12,11 +14,13 @@ def main():
     tree = heap_to_tree(arr)
     draw_tree(tree)
 
-    dfs(tree, 31)
-    draw_tree(tree)
+    tree_copy = copy.deepcopy(tree)
+    dfs(tree_copy, 31)
+    draw_tree(tree_copy)
 
-    bfs(tree, 31)
-    draw_tree(tree)
+    tree_copy = copy.deepcopy(tree)
+    bfs(tree_copy, 31)
+    draw_tree(tree_copy)
 
 
 if __name__ == "__main__":
