@@ -6,7 +6,10 @@
 from __future__ import annotations
 
 import argparse
+import math
 import turtle
+
+MIN_ORDER, MAX_ORDER, DEFAULT_ORDER = 0, 10, 5
 
 
 def go_to_point(t: turtle.Turtle, x, y):
@@ -16,11 +19,7 @@ def go_to_point(t: turtle.Turtle, x, y):
 
 
 def pythagorean_tree(
-    t: turtle.Turtle,
-    order: int,
-    size: float,
-    last_angle: float = 0,
-    size_decrease_rate: float = 0.6,
+    t: turtle.Turtle, order: int, size: float, last_angle: float = 0
 ) -> None:
     """Малює фрактал «дерево Піфагора» за допомогою рекурсії.
 
@@ -29,7 +28,6 @@ def pythagorean_tree(
         order: рівень (порядок) рекурсії.
         size: довжина поточного відрізка.
         last_angle: кут попереднього рівня. За замовчуванням 0.
-        size_decrease_rate: коефіцієнт зменшення довжини. За замовчуванням 0.6.
     """
     if order == 0:
         t.forward(size)
@@ -38,7 +36,7 @@ def pythagorean_tree(
     t.forward(size)
     current_point = t.position()
     # Decrease current size by some factor to avoid collisions
-    next_size = size * size_decrease_rate if 0.05 < size_decrease_rate < 1 else size
+    next_size = size * math.cos(math.radians(45))
     # Split into several lines and draw the next order of the tree
     for angle in [45, -45]:
         t.setheading(last_angle)
@@ -55,7 +53,6 @@ if __name__ == "__main__":
     parser.add_argument("--order", type=int, nargs="?", const=3, default=3)
     parser.add_argument("--size", type=float, nargs="?", const=200, default=200)
     parser.add_argument("--initial-angle", type=float, nargs="?", const=90, default=90)
-    parser.add_argument("--sdr", type=float, nargs="?", const=0.7, default=0.7)
     args = parser.parse_args()
 
     initial_angle = args.initial_angle % 360
@@ -64,15 +61,17 @@ if __name__ == "__main__":
     initial_position = initial_position.rotate(initial_angle)
 
     order = args.order
-    if not (0 < order < 8):
-        print("Order should be more than 0 and less than 8. Setting to 5.")
-        order = 5
+    if not (MIN_ORDER < order < MAX_ORDER):
+        print(
+            f"Order should be more than {MIN_ORDER} and less than {MAX_ORDER}. Setting to {DEFAULT_ORDER}."
+        )
+        order = DEFAULT_ORDER
 
     t = turtle.Turtle()
     t.speed(0)
     go_to_point(t, initial_position[0], initial_position[1])
     t.left(args.initial_angle)
-    pythagorean_tree(t, order, args.size, initial_angle, args.sdr)
+    pythagorean_tree(t, order, args.size, initial_angle)
     t.hideturtle()
 
     window.mainloop()
