@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 import turtle
 
 
@@ -38,7 +39,7 @@ def pythagorean_tree(
     t.forward(size)
     current_point = t.position()
     # Decrease current size by some factor to avoid collisions
-    next_size = size * size_decrease_rate if 0.05 < size_decrease_rate < 1 else size
+    next_size = size * math.cos(math.radians(45))
     # Split into several lines and draw the next order of the tree
     for angle in [45, -45]:
         t.setheading(last_angle)
