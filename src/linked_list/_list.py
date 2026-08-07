@@ -6,14 +6,17 @@ from .node import Node
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.length = 0
 
     def insert_at_beginning(self, data):
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
+        self.length += 1
 
     def insert_at_end(self, data):
         new_node = Node(data)
+        self.length += 1
         if self.head is None:
             self.head = new_node
         else:
@@ -29,12 +32,14 @@ class LinkedList:
         new_node = Node(data)
         new_node.next = prev_node.next
         prev_node.next = new_node
+        self.length += 1
 
     def delete_node(self, key: int):
         cur = self.head
         if cur and cur.data == key:
             self.head = cur.next
             cur = None
+            self.length -= 1
             return
         prev = None
         while cur and cur.data != key:
@@ -43,6 +48,7 @@ class LinkedList:
         if cur is None:
             return
         prev.next = cur.next
+        self.length -= 1
         cur = None
 
     def search_element(self, data: int) -> Node | None:
@@ -68,23 +74,54 @@ class LinkedList:
 
         self.head = prev
 
+    def __get_j_node(self, starting_node: Node, unsorted_node: Node) -> Node:
+        cur = starting_node
+        while cur.next != unsorted_node:
+            cur = cur.next
+        return cur
+
     def sort(self):
         """Сортує однозв'язний список алгоритмом сортування вставками."""
 
         if not (self.head and self.head.next):
             return
 
-        nodes = self.to_node_list()
-        N = len(nodes)
-        for i in range(1, N):
-            j = i - 1
-            key = nodes[i]
-            while j >= 0 and key.data < nodes[j].data:
-                nodes[j + 1] = nodes[j]
-                j -= 1
-            nodes[j + 1] = key
+        j_node = self.head
+        unsorted_node = self.head.next
+        while unsorted_node:
+            # Обрати вузол який потрібно відортувати
+            key = unsorted_node
 
-        self.__reorder_list(nodes)
+            # Переходимо до наступної unsorted_node
+            unsorted_node = unsorted_node.next
+
+            if j_node.data < key.data:
+                j_node = key
+                continue
+
+            # Направляємо передостанню ноду на нову несортовану
+            j_node.next = unsorted_node
+
+            # Починаємо з початку Linked list для пошуку insertion
+            last_node = None
+            current_node = self.head
+
+            # Знаходимо першу вузол, що задовільняє умові
+            while key.data > current_node.data:
+                last_node = current_node
+                current_node = current_node.next
+
+            # Шукаємо новий передостанній вузол після місця де ми вставили key
+            j_node = self.__get_j_node(current_node, unsorted_node)
+
+            # Вставляємо node
+            key.next = current_node
+            if last_node:
+                last_node.next = key
+                continue
+
+            # У випадку відсутності передостаннього вузла: key - старт списку
+            self.head = key
 
     def merge_with(self, other: Self):
         """Об'єднує поточний відсортований список з іншим у один відсортований.
@@ -92,55 +129,53 @@ class LinkedList:
         Args:
             other: інший відсортований однозв'язний список.
         """
-        nodes = []
-        part_a = self.to_node_list()
-        part_b = other.to_node_list()
+        a_node = self.head
+        b_node = other.head
 
-        i, j = 0, 0
-
-        while i < len(part_a) and j < len(part_b):
-            if part_a[i].data <= part_b[j].data:
-                nodes.append(part_a[i])
-                i += 1
-
-            else:
-                nodes.append(part_b[j])
-                j += 1
-
-        if i < len(part_a):
-            nodes += part_a[i:]
-        if j < len(part_b):
-            nodes += part_b[j:]
-
-        self.__reorder_list(nodes)
-
-    def __reorder_list(self, nodes: list[Node]):
-        """Перебудовує посилання списку за заданим порядком вузлів.
-
-        Args:
-            nodes: вузли у потрібному порядку.
-        """
-        if not nodes:
+        if not b_node:
+            return
+        if not a_node:
+            self.head = b_node
             return
 
-        current = nodes[0]
-        for i in range(1, len(nodes)):
-            current.next = nodes[i]
-            current = nodes[i]
+        last: Node = None
 
-        nodes[-1].next = None
-        self.head = nodes[0]
+        # При перевірці даних на початку приймаємо рішення з вузла якого списку починати merge
+        if a_node.data <= b_node.data:
+            last = a_node
+            a_node = a_node.next
+        else:
+            self.head = b_node
+            last = b_node
+            b_node = b_node.next
 
-    def to_node_list(self) -> list[Node]:
-        result = []
-        current = self.head
-        while current:
-            result.append(current)
-            current = current.next
-        return result
+        while a_node and b_node:
+            if a_node.data <= b_node.data:
+                # Попередній вузол посилається на поточний
+                # Поточний стає попереднім
+                last.next = a_node
+                last = a_node
+                a_node = a_node.next
+            else:
+                last.next = b_node
+                last = b_node
+                b_node = b_node.next
+
+        # На відміну від масивів, якщо залишаються елементи то достатньо перекинути вузол на таку node
+        if a_node:
+            last.next = a_node
+
+        if b_node:
+            last.next = b_node
 
     def to_list(self) -> list[Any]:
-        return [node.data for node in self.to_node_list()]
+        cur = self.head
+        result = []
+        while cur:
+            result.append(cur.data)
+            cur = cur.next
+
+        return result
 
     def print_list(self):
         current = self.head
