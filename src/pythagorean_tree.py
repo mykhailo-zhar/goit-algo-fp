@@ -17,11 +17,7 @@ def go_to_point(t: turtle.Turtle, x, y):
 
 
 def pythagorean_tree(
-    t: turtle.Turtle,
-    order: int,
-    size: float,
-    last_angle: float = 0,
-    size_decrease_rate: float = 0.6,
+    t: turtle.Turtle, order: int, size: float, last_angle: float = 0
 ) -> None:
     """Малює фрактал «дерево Піфагора» за допомогою рекурсії.
 
@@ -30,7 +26,6 @@ def pythagorean_tree(
         order: рівень (порядок) рекурсії.
         size: довжина поточного відрізка.
         last_angle: кут попереднього рівня. За замовчуванням 0.
-        size_decrease_rate: коефіцієнт зменшення довжини. За замовчуванням 0.6.
     """
     if order == 0:
         t.forward(size)
@@ -56,7 +51,6 @@ if __name__ == "__main__":
     parser.add_argument("--order", type=int, nargs="?", const=3, default=3)
     parser.add_argument("--size", type=float, nargs="?", const=200, default=200)
     parser.add_argument("--initial-angle", type=float, nargs="?", const=90, default=90)
-    parser.add_argument("--sdr", type=float, nargs="?", const=0.7, default=0.7)
     args = parser.parse_args()
 
     initial_angle = args.initial_angle % 360
@@ -73,7 +67,7 @@ if __name__ == "__main__":
     t.speed(0)
     go_to_point(t, initial_position[0], initial_position[1])
     t.left(args.initial_angle)
-    pythagorean_tree(t, order, args.size, initial_angle, args.sdr)
+    pythagorean_tree(t, order, args.size, initial_angle)
     t.hideturtle()
 
     window.mainloop()
