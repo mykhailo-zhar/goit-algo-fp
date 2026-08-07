@@ -65,28 +65,28 @@ def dynamic_programming(items: list[Item], wallet: int) -> tuple[int, list[Item]
 
     # будуємо таблицю K знизу вгору
     for item_idx in range(n + 1):
-        for charges in range(wallet + 1):
-            if item_idx == 0 or charges == 0:
+        for cost in range(wallet + 1):
+            if item_idx == 0 or cost == 0:
                 #Можемо використати посилання на масив, щоб не засмічувати пам'ять
-                K[item_idx][charges] = zero_item
-            elif items[item_idx - 1].cost <= charges:
-
-                last_item_with_last_calories = K[item_idx - 1][
-                    charges - items[item_idx - 1].cost
+                K[item_idx][cost] = zero_item
+            elif items[item_idx - 1].cost <= cost:
+                
+                current_item_with_better_cost = K[item_idx - 1][
+                    cost - items[item_idx - 1].cost # cost of current item
                 ]
-                new_calories = items[item_idx - 1].calories + last_item_with_last_calories[0]
-                last_item = K[item_idx - 1][charges]
+                new_calories = items[item_idx - 1].calories + current_item_with_better_cost[0]
+                current_item_with_current_cost = K[item_idx - 1][cost] 
 
-                if new_calories > last_item[0]:
+                if new_calories > current_item_with_current_cost[0]:
                     # Копіюємо масив лише в ситуації його зміни
-                    arr_temp = last_item_with_last_calories[1][:]
+                    arr_temp = current_item_with_better_cost[1][:]
                     arr_temp.append(items[item_idx - 1])
-                    K[item_idx][charges] = [new_calories, arr_temp]
+                    K[item_idx][cost] = [new_calories, arr_temp]
                 else: # У випадку <= Теж можна просто скопіювати посилання
-                    K[item_idx][charges] = last_item
+                    K[item_idx][cost] = current_item_with_current_cost
 
             else:
-                K[item_idx][charges] = K[item_idx - 1][charges]
+                K[item_idx][cost] = K[item_idx - 1][cost]
 
     return K[n][wallet][0], K[n][wallet][1]
 
