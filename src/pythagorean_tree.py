@@ -9,6 +9,8 @@ import argparse
 import math
 import turtle
 
+MIN_ORDER, MAX_ORDER, DEFAULT_ORDER = 0, 10, 5
+
 
 def go_to_point(t: turtle.Turtle, x, y):
     t.penup()
@@ -59,9 +61,11 @@ if __name__ == "__main__":
     initial_position = initial_position.rotate(initial_angle)
 
     order = args.order
-    if not (0 < order < 8):
-        print("Order should be more than 0 and less than 8. Setting to 5.")
-        order = 5
+    if not (MIN_ORDER < order < MAX_ORDER):
+        print(
+            f"Order should be more than {MIN_ORDER} and less than {MAX_ORDER}. Setting to {DEFAULT_ORDER}."
+        )
+        order = DEFAULT_ORDER
 
     t = turtle.Turtle()
     t.speed(0)
